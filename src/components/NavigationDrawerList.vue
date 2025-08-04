@@ -3,10 +3,11 @@ import { ref } from "vue";
 import { useTheme } from "vuetify";
 import { useAppStore } from "@/stores/app";
 import { storeToRefs } from "pinia";
+import {Colors, vuetifyThemeFromColors} from "@/plugins/vuetifyM3ThemeGenerator";
 
 const theme = useTheme();
 const store = useAppStore();
-const { palette, contrast } = storeToRefs(store);
+const { palette, contrast, lightTheme, darkTheme } = storeToRefs(store);
 
 const pages = ref([
   { route: "/", title: "Home" },
@@ -34,8 +35,20 @@ function applySelection() {
   const color = colorPicker.value;
 
   if (key && color) {
-    theme.themes.value.light.colors[key] = color;
-    theme.themes.value.dark.colors[key] = color;
+    palette.value.forEach((p) => {
+      if (p.key === key) {
+        p.color = color;
+      }
+    })
+    const colors: Colors = palette.value.reduce((acc, p) => {
+      acc[p.key] = p.color;
+      return acc;
+    }, {}) as Colors;
+
+    lightTheme.value = vuetifyThemeFromColors(colors, false)
+    //darkTheme.value = vuetifyThemeFromColor(hexColor, true)
+    theme.themes.value.light = lightTheme.value;
+    theme.themes.value.dark = darkTheme.value;
   }
 
   // Force Vuetify to refresh theme CSS variables
@@ -47,9 +60,7 @@ function applySelection() {
 }
 
 function handleContrastSelected() {
-  for (let b of palette.value) {
-    store.setThemesByColor(b.key, b.color, contrastSelected.value.value);
-  }
+  store.setThemesByColor(contrastSelected.value.value);
 }
 </script>
 <template>
@@ -63,7 +74,7 @@ function handleContrastSelected() {
       >
         <template v-slot:prepend>
           <v-btn @click="handleClickBtnColor(b)" :color="b.color" icon>
-            <v-icon :color="b.color">mdi-circle</v-icon>
+            <v-icon v-model:color="b.color">mdi-circle</v-icon>
           </v-btn>
         </template>
         <v-list-item-title class="pl-4">{{ b.title }}</v-list-item-title>

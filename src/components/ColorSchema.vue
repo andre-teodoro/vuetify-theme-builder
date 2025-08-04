@@ -108,6 +108,48 @@
               <v-sheet
                 :height="75"
                 class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
+                color="warning"
+              >warning</v-sheet
+              >
+              <v-sheet
+                :height="75"
+                class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
+                color="warning-container"
+              >warning Container</v-sheet
+              >
+            </div>
+            <div class="d-flex w-100">
+              <v-sheet
+                :height="75"
+                class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
+                color="success"
+              >success</v-sheet
+              >
+              <v-sheet
+                :height="75"
+                class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
+                color="success-container"
+              >success Container</v-sheet
+              >
+            </div>
+            <div class="d-flex w-100">
+              <v-sheet
+                :height="75"
+                class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
+                color="info"
+              >info</v-sheet
+              >
+              <v-sheet
+                :height="75"
+                class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
+                color="info-container"
+              >info Container</v-sheet
+              >
+            </div>
+            <div class="d-flex w-100">
+              <v-sheet
+                :height="75"
+                class="pt-4 pl-4 flex-grow-1 flex-shrink-0"
                 color="surface"
                 >Surface</v-sheet
               >
@@ -412,6 +454,7 @@
   </v-container>
 </template>
 
-<script setup></script>
+<script setup>
+</script>
 
 <style lang="scss" scoped></style>

@@ -1,6 +1,11 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { vuetifyThemeFromColor, vuetifyThemeFromHex, vuetifyColorsFromHex } from '@/plugins/vuetifyM3ThemeGenerator';
+import {
+  vuetifyThemeFromColor,
+  vuetifyThemeFromHex,
+  vuetifyColorsFromHex,
+  vuetifyThemeFromColors
+} from '@/plugins/vuetifyM3ThemeGenerator';
 
 export const useAppStore = defineStore('app', {
   state: () => ({
@@ -8,23 +13,48 @@ export const useAppStore = defineStore('app', {
       {
         key: "primary",
         title: "Primary",
-        color: "#53437c",
+        color: "#0F5AE8",
       },
       {
         key: "secondary",
         title: "Secondary",
-        color: "#50495e",
+        color: "#0D337F",
       },
       {
         key: "tertiary",
         title: "Tertiary",
-        color: "#6a404e",
+        color: "#3DCA9A",
       },
       {
         key: "error",
         title: "Error",
-        color: "#9e000b",
-      }
+        color: "#C01031",
+      },
+      {
+        key: "warning",
+        title: "Warning",
+        color: "#FFE145",
+      },
+      {
+        key: "success",
+        title: "Success",
+        color: "#22800B",
+      },
+      {
+        key: "info",
+        title: "Info",
+        color: "#5846BC",
+      },
+      {
+        key: "background",
+        title: "Background",
+        color: "#ffffff",
+      },
+      {
+        key: "surface",
+        title: "Surface",
+        color: "#F8FCFF",
+      },
     ],
     contrast: [
       {
@@ -44,8 +74,18 @@ export const useAppStore = defineStore('app', {
         title: "Reduced contrast",
       },
     ],
-    lightTheme: vuetifyThemeFromColor(0xff6750A4, false),
-    darkTheme: vuetifyThemeFromColor(0xff6750A4, true),
+    lightTheme: vuetifyThemeFromColors({
+      primary: "#0F5AE8",
+      secondary: "#0D337F",
+      tertiary: "#3DCA9A",
+      error: "#C01031",
+      warning: "#FFE145",
+      success: "#22800B",
+      info: "#5846BC",
+      background: "#ffffff",
+      surface: "#F8FCFF",
+    }, false),
+    darkTheme: vuetifyThemeFromColor(0x0F5AE8, true),
     vuetify_keys: ['background', 'surface', 'surface-bright', 'surface-light', 'surface-variant', 'on-surface-variant', 'primary', 'primary-darken-1', 'secondary',
       'secondary-darken-1', 'error', 'info', 'success', 'warning', 'tertiary'],
   }),
@@ -57,30 +97,13 @@ export const useAppStore = defineStore('app', {
   },
   actions: {
 
-    setThemesByColor(key, color, contrast) {
+    setThemesByColor(contrast) {
+      const prim = this.palette[0]
+      const sec = this.palette[1]
+      const ter = this.palette[2]
 
-      if ("primary" === key) {
-        this.lightTheme = vuetifyThemeFromHex(color, false, contrast);
-
-        this.palette.map((p) => {
-          if ("primary" !== p.key) {
-            p.color = this.lightTheme.colors[p.key];
-          }
-        });
-
-        this.darkTheme = vuetifyThemeFromHex(color, true, contrast)
-      } else {
-        let tempLight = vuetifyColorsFromHex(key, color, false, contrast);
-
-        tempLight.map((c) => {
-          this.lightTheme.colors[c[0]] = c[1];
-        });
-
-        let tempDark = vuetifyColorsFromHex(key, color, true, contrast);
-        tempDark.map((c) => {
-          this.darkTheme.colors[c[0]] = c[1];
-        });
-      }
+      this.lightTheme = vuetifyThemeFromColors(prim.color, sec.color, ter.color, false, contrast);
+      this.darkTheme = vuetifyThemeFromColors(prim.color, sec.color, ter.color, true, contrast);
     },
   }
 })

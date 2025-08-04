@@ -8,16 +8,17 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@material/material-color-utilities": "^0.2.7",
+    "@material/material-color-utilities": "^0.3.0",
     "@mdi/font": "7.0.96",
     "core-js": "^3.34.0",
     "just-kebab-case": "^4.2.0",
-    "pinia-plugin-persistedstate": "^3.2.1",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.4.1",
     "roboto-fontface": "*",
     "vite-plugin-pages": "^0.32.1",
-    "vue": "^3.4.0",
-    "vue-router": "^4.3.0",
-    "vuetify": "^3.5.0"
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1",
+    "vuetify": "^3.9.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
@@ -28,7 +29,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.22.0",
-    "pinia": "^2.1.7",
     "sass": "^1.71.1",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-fonts": "^1.1.1",
